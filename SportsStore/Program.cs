@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using SportsStore.Models;
+
 namespace SportsStore
 {
     public class Program
@@ -8,8 +11,15 @@ namespace SportsStore
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<StoreDbContext>(option => {
+                option.UseSqlServer(
+             builder.Configuration["connectionStrings:SportsStoreConnection"]); 
+                });
+
+            builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
 
             var app = builder.Build();
+            // creating The Repository Service
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -30,6 +40,7 @@ namespace SportsStore
             // register the MVCFramework as a source of endpoints using a default convention for mapping request to classes and methods
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            SeedData.EnsurePopulated(app);
 
             app.Run();
         }

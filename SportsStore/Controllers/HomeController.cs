@@ -1,32 +1,73 @@
 using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
+using SportsStore.Models.ViewModels;
 using System.Diagnostics;
 
 namespace SportsStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
+
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
+        private IStoreRepository repository;
+        public int pagesize = 1;
+        public HomeController(IStoreRepository repo)
         {
-            _logger = logger;
+            repository = repo;
+        }
+        //public IActionResult Index()
+        //{
+        //    return View(repository.products);
+        //}
+        public ViewResult Index(int productPage = 1)
+        {
+            return View(new ProductsListViewModel
+            {
+                Products = repository.products
+                 .OrderBy(p => p.ProductId)
+            .Skip((productPage - 1) * pagesize)
+            .Take(pagesize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = productPage,
+                    ItemsPerPage = pagesize,
+                    TotalItems = repository.products.Count()
+                }
+
+
+            });
+            
         }
 
-        public IActionResult Index()
+        
+        
+        
+        public IActionResult Index2()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            Product product = new Product();
+            product.ProductName = "Pen";
+            product.Price = 300;
+            return View("Index2",product);
         }
     }
 }
