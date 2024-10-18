@@ -21,6 +21,12 @@ namespace SportsStore.Infrastructure_Folder
         public ViewContext? ViewContext { get; set; }
         public PagingInfo? PageModel { get; set; }
         public string? PageAction { get; set; }
+        [HtmlAttributeName(DictionaryAttributePrefix ="page-url-")]
+        public Dictionary<string,object>PageUrlValues { get; set; } = new Dictionary<string,object>();
+        public bool PageClassesEnabled { get; set; } = false;
+        public string PageClass { get; set; } = String.Empty;
+        public string PageClassNormal { get; set; } = String.Empty;
+        public string PageClassSelected { get; set; } = String.Empty;
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             //base.Process(context, output);
@@ -32,7 +38,14 @@ namespace SportsStore.Infrastructure_Folder
                 {
 
                     TagBuilder tag = new TagBuilder("a");
+                    PageUrlValues["productPage"] = i;
+                    tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
                     tag.Attributes["href"] = urlHelper.Action(PageAction, new { ProductPage = i });
+                    if (PageClassesEnabled)
+                    {
+                        tag.AddCssClass(PageClass);
+                        tag.AddCssClass(i == PageModel.CurrentPage? PageClassSelected:PageClassNormal);
+                    }
                     tag.InnerHtml.Append(i.ToString()); 
                     result.InnerHtml.AppendHtml(tag);
 

@@ -36,10 +36,25 @@ namespace SportsStore
 
             app.UseAuthorization();
 
+            app.MapControllerRoute(
+                "catpage", "{category}/Page{ProductPage:int}",
+                 new { Controller = "Home", action = "Index" });
+
+            app.MapControllerRoute(
+                "page", "Page{ProductPage:int}",
+                 new { Controller = "Home", action = "Index" });
+
+            app.MapControllerRoute(
+                "category", "{cateory}",
+                 new { Controller = "Home", action = "Index" });
             app.MapControllerRoute(  
+                "pagination", "Products/Page{ProductPage}",
+                 new { Controller = "Home", action = "Index" });
             // register the MVCFramework as a source of endpoints using a default convention for mapping request to classes and methods
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            //name: "default",
+            //pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapDefaultControllerRoute();
+
             SeedData.EnsurePopulated(app);
 
             app.Run();

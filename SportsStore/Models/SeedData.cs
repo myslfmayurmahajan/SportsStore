@@ -23,9 +23,8 @@ namespace SportsStore.Models
 
                     ProductName = "Mobile",
                     ProductDescription = "A SmartPhone",
-                    Price = 43433,
-                    ProductCategory = "ElectronicGedgete",
-                    ProductId = 224
+                    Price = 4433,
+                    ProductCategory = "Palmtop"
 
                 },
                 new Product
@@ -33,9 +32,8 @@ namespace SportsStore.Models
 
                     ProductName = "Laptop",
                     ProductDescription = "A windows Device",
-                    Price = 434333,
-                    ProductCategory = "ElectronicGedgete",
-                     ProductId = 225
+                    Price = 4343,
+                    ProductCategory = "laptop"
 
                 },
                  new Product
@@ -43,9 +41,8 @@ namespace SportsStore.Models
 
                      ProductName = "Keyboard",
                      ProductDescription = "A hardware Device",
-                     Price = 4343545,
-                     ProductCategory = "ElectronicGedgete",
-                      ProductId = 226
+                     Price = 43445,
+                     ProductCategory = "Hardware Electronic"
 
                  },
                  new Product
@@ -53,19 +50,17 @@ namespace SportsStore.Models
 
                      ProductName = "mouse",
                      ProductDescription = "A Harware Device",
-                     Price = 4346454,
-                     ProductCategory = "ElectronicGedgete",
-                     ProductId = 225
+                     Price = 43464,
+                     ProductCategory = "Hardware Electronic"
 
                  },
                  new Product
                  {
 
-                     ProductName = "Bottal",
+                     ProductName = "Chair",
                      ProductDescription = "A hard Device",
                      Price = 433,
-                     ProductCategory = "ElectronicGedgete",
-                     ProductId = 225
+                     ProductCategory = "Furniture"
 
                  }
                 );

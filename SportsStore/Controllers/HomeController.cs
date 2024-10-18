@@ -30,7 +30,7 @@ namespace SportsStore.Controllers
         //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         //}
         private IStoreRepository repository;
-        public int pagesize = 1;
+        public int pagesize = 4;
         public HomeController(IStoreRepository repo)
         {
             repository = repo;
@@ -39,11 +39,12 @@ namespace SportsStore.Controllers
         //{
         //    return View(repository.products);
         //}
-        public ViewResult Index(int productPage = 1)
+        public ViewResult Index(string? category,int productPage = 1)
         {
             return View(new ProductsListViewModel
             {
                 Products = repository.products
+                .Where(p=>category==null || p.ProductCategory== category)   
                  .OrderBy(p => p.ProductId)
             .Skip((productPage - 1) * pagesize)
             .Take(pagesize),
@@ -52,7 +53,8 @@ namespace SportsStore.Controllers
                     CurrentPage = productPage,
                     ItemsPerPage = pagesize,
                     TotalItems = repository.products.Count()
-                }
+                },
+                CurrentCategory = category
 
 
             });
