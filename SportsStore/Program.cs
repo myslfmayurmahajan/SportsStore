@@ -23,6 +23,8 @@ namespace SportsStore
             builder.Services.AddRazorPages();
             builder.Services.AddDistributedMemoryCache();// setup the in-memory data storre
             builder.Services.AddSession();
+            builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             var app = builder.Build();
             // creating The Repository Service

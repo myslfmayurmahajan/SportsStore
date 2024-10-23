@@ -3,7 +3,7 @@
     public class Cart
     {
         public List<CartLine> Lines { get; set; } = new List<CartLine>();
-        public void AddItem(Product product , int quantity)
+        public virtual void AddItem(Product product , int quantity)
         {
             CartLine? line = Lines
                 .Where(p => p.Product.ProductId == product.ProductId)
@@ -23,12 +23,12 @@
                 line.Quantity += quantity;
             }
         }
-
-        public void RemoveLine(Product product) =>
+        // virtual keyword - so that we can override the class members.
+        public virtual void RemoveLine(Product product) =>
             Lines.RemoveAll(l=>l.Product.ProductId == product.ProductId);
         public decimal ComputerTotalValue() =>
             Lines.Sum(e=>e.Product.Price * e.Quantity);
-        public void Clear() => Lines.Clear();
+        public virtual void Clear() => Lines.Clear();
 
     }
     public class CartLine
