@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SportsStore.Models;
 
 namespace SportsStore
@@ -17,6 +20,9 @@ namespace SportsStore
                 });
 
             builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
+            builder.Services.AddRazorPages();
+            builder.Services.AddDistributedMemoryCache();// setup the in-memory data storre
+            builder.Services.AddSession();
 
             var app = builder.Build();
             // creating The Repository Service
@@ -31,7 +37,7 @@ namespace SportsStore
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();//enables support for serving conent from wwwroot folder
-
+            app.UseSession();//registers the services used to access session data this UseSession method allows the session to automatically assciate requests with session 
             app.UseRouting();
 
             app.UseAuthorization();
@@ -42,20 +48,21 @@ namespace SportsStore
 
             app.MapControllerRoute(
                 "page", "Page{ProductPage:int}",
-                 new { Controller = "Home", action = "Index" });
+                 new { Controller = "Home", action = "Index",ProductPage=1 });
 
             app.MapControllerRoute(
                 "category", "{cateory}",
-                 new { Controller = "Home", action = "Index" });
+                 new { Controller = "Home", action = "Index", ProductPage = 1 });
             app.MapControllerRoute(  
                 "pagination", "Products/Page{ProductPage}",
-                 new { Controller = "Home", action = "Index" });
+                 new { Controller = "Home", action = "Index", ProductPage = 1 });
             // register the MVCFramework as a source of endpoints using a default convention for mapping request to classes and methods
             //name: "default",
             //pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapDefaultControllerRoute();
+            app.MapRazorPages();
 
-            SeedData.EnsurePopulated(app);
+           // SeedData.EnsurePopulated(app);
 
             app.Run();
         }
