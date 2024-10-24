@@ -20,11 +20,13 @@ namespace SportsStore
                 });
 
             builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
+            builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
             builder.Services.AddRazorPages();
             builder.Services.AddDistributedMemoryCache();// setup the in-memory data storre
             builder.Services.AddSession();
             builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+           
 
             var app = builder.Build();
             // creating The Repository Service
@@ -64,7 +66,7 @@ namespace SportsStore
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
 
-           // SeedData.EnsurePopulated(app);
+           SeedData.EnsurePopulated(app);
 
             app.Run();
         }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
 
-namespace SportsStore.Component_Folder
+namespace SportsStore.ComponentFolder
 {
-    public class NavigationMenuViewComponent :ViewComponent
+    public class NavigationMenuViewComponent : ViewComponent
     {
         private IStoreRepository repository;
 
