@@ -17,21 +17,22 @@ namespace SportsStore.Models
                 {
                     context.Database.Migrate();
                 }
-                UserManager<IdentityUser> userManager = app.ApplicationServices
-                       .CreateScope().ServiceProvider
-                       .GetRequiredService<UserManager<IdentityUser>>();
-                IdentityUser user = await userManager.FindByNameAsync(adminUser);
-                if (user == null)
-                {
-                    user = new IdentityUser("Admin");
-                    user.Email = "admin@example.com";
-                    user.PhoneNumber = "555-1234";
-                    await userManager.CreateAsync(user, adminPassword);
-
-                }
+               
 
 
-            }
-        }
+            }  // getback
+			UserManager<IdentityUser> userManager = app.ApplicationServices
+					  .CreateScope().ServiceProvider
+					  .GetRequiredService<UserManager<IdentityUser>>();
+			IdentityUser user = await userManager.FindByNameAsync(adminUser);
+			if (user == null)
+			{
+				user = new IdentityUser("Admin");
+				user.Email = "admin@example.com";
+				user.PhoneNumber = "555-1234";
+				var result = await userManager.CreateAsync(user, adminPassword);
+				Console.WriteLine("result");
+			}
+		}
     }
 }
