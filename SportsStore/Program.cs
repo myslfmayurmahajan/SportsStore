@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SportsStore.Models;
-
+// previous server name -DESKTOP-KBO1VHT;
 namespace SportsStore
 {
     public class Program
