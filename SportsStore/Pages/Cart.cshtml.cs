@@ -12,7 +12,7 @@ namespace SportsStore.RazorPages
 
         public CartModel(IStoreRepository repo, Cart cartServices)
         {
-            this.repository = repo;
+            repository = repo;
             Cart = cartServices;
         }
         public Cart Cart { get; set; }
@@ -35,7 +35,7 @@ namespace SportsStore.RazorPages
             }
             return RedirectToPage(new { returnUrl = returnUrl });
         }
-        public IActionResult onPostRemove(long productId, string returnUrl)
+        public IActionResult OnPostRemove(long productId, string returnUrl)
         {
             Cart.RemoveLine(Cart.Lines.First(cl => cl.Product.ProductId == productId).Product);
             return RedirectToPage(new {returnUrl = returnUrl});
