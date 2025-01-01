@@ -10,7 +10,7 @@
         {
             _Context = sdc;
         }
-        public IQueryable<Product> products => _Context.Products;
+        public IQueryable<Product> Products => _Context.Products;
 
         //public IQueryable<Product> products => throw new NotImplementedException();
 

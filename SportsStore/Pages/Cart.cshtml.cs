@@ -25,7 +25,7 @@ namespace SportsStore.RazorPages
         }
         public IActionResult OnPost(long productId, string returnUrl)
         {
-            Product? product = repository.products
+            Product? product = repository.Products
                 .FirstOrDefault(p => p.ProductId == productId);
             if (product != null)
             {

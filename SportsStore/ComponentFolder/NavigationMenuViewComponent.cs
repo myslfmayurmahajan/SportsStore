@@ -14,7 +14,7 @@ namespace SportsStore.ComponentFolder
         public IViewComponentResult Invoke()
         {
             ViewBag.SelectedCategory = RouteData?.Values["Productcategory"];
-            return View(repository.products.Select(x => x.ProductCategory)
+            return View(repository.Products.Select(x => x.ProductCategory)
                 .Distinct()
                 .OrderBy(x => x));
         }
