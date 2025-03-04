@@ -62,7 +62,16 @@ namespace SportsStore.Models
                      Price = 433,
                      ProductCategory = "Furniture"
 
-                 }
+                 },
+                  new Product
+                  {
+
+                      ProductName = "Desktop",
+                      ProductDescription = "A harware product Device",
+                      Price = 32332,
+                      ProductCategory = "A product"
+
+                  }
                 );
 
                 context.SaveChanges();
